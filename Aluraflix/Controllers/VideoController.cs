@@ -8,12 +8,12 @@ namespace Aluraflix.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class VideoController : ControllerBase
+public class VideosController : ControllerBase
 {
     private AppDbContext _context;
     private IMapper _mapper;
 
-    public VideoController(AppDbContext context, IMapper mapper)
+    public VideosController(AppDbContext context, IMapper mapper)
 	{
 		_context = context;
 		_mapper = mapper;
@@ -42,4 +42,14 @@ public class VideoController : ControllerBase
 		var videoDto = _mapper.Map<ReadVideoDto>(video);
 		return Ok(videoDto);
     }
+
+	[HttpPut("{id}")]
+	public IActionResult UpdateVideo(int id, [FromBody] UpdateVideoDto videoDto)
+	{
+		var video = _context.Videos.FirstOrDefault(video => video.Id == id);
+		if (video == null) return NotFound();
+		_mapper.Map(videoDto, video);
+		_context.SaveChanges();
+		return NoContent();
+	}
 }

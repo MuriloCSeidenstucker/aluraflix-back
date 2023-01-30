@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aluraflix.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230130102321_CreatingVideoTable")]
-    partial class CreatingVideoTable
+    [Migration("20230130161806_CreatingVideosTable")]
+    partial class CreatingVideosTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,8 +34,8 @@ namespace Aluraflix.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("varchar(60)");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("URL")
                         .IsRequired()

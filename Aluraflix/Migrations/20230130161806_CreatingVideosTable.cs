@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Aluraflix.Migrations
 {
     /// <inheritdoc />
-    public partial class CreatingVideoTable : Migration
+    public partial class CreatingVideosTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace Aluraflix.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false)
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "varchar(270)", maxLength: 270, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),

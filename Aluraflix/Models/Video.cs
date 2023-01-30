@@ -9,7 +9,7 @@ public class Video
     public int Id { get; set; }
 
     [Required(ErrorMessage = "O campo de título é obrigatório")]
-    [StringLength(60)]
+    [StringLength(100)]
     public string Title { get; set; }
 
     [StringLength(270)]
