@@ -2,6 +2,7 @@
 using Aluraflix.Data.Dtos.VideoDto;
 using Aluraflix.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aluraflix.Controllers;
@@ -44,7 +45,7 @@ public class VideosController : ControllerBase
     }
 
 	[HttpPut("{id}")]
-	public IActionResult UpdateVideo(int id, [FromBody] UpdateVideoDto videoDto)
+	public IActionResult UpdateVideoPut(int id, [FromBody] UpdateVideoDto videoDto)
 	{
 		var video = _context.Videos.FirstOrDefault(video => video.Id == id);
 		if (video == null) return NotFound();
@@ -52,4 +53,23 @@ public class VideosController : ControllerBase
 		_context.SaveChanges();
 		return NoContent();
 	}
+
+	[HttpPatch("{id}")]
+	public IActionResult UpdateVideoPatch(int id, JsonPatchDocument<UpdateVideoDto> patch)
+	{
+        var video = _context.Videos.FirstOrDefault(video => video.Id == id);
+        if (video == null) return NotFound();
+
+		var videoToUpdate = _mapper.Map<UpdateVideoDto>(video);
+
+		patch.ApplyTo(videoToUpdate, ModelState);
+		if (!TryValidateModel(videoToUpdate))
+		{
+			return ValidationProblem(ModelState);
+		}
+
+        _mapper.Map(videoToUpdate, video);
+        _context.SaveChanges();
+        return NoContent();
+    }
 }

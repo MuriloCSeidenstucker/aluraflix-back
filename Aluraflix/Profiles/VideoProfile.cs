@@ -11,5 +11,6 @@ public class VideoProfile : Profile
 		CreateMap<CreateVideoDto, Video>();
 		CreateMap<UpdateVideoDto, Video>();
 		CreateMap<Video, ReadVideoDto>();
+		CreateMap<Video, UpdateVideoDto>();
 	}
 }
